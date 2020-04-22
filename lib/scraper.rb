@@ -65,13 +65,15 @@ class Scraper
     array = Array.new
 
     worksheet.rows.first(worksheet.num_rows).each { |row| @array_townhall << row.first(2)}
-=begin
-    worksheet.rows.each do |row|
-      hash_tmp[row[0]] = row[1]
-      array << hash_tmp  
-    end
+  end
 
-    @array_townhall = array
-=end
+  def stock_array_csv
+    CSV.open("emails.csv", "w") do |csv|
+      csv << @array_townhall
+    end
+  end
+
+  def retrieve_array_csv
+    @array_townhall = CSV.read("emails.csv")
   end
 end
